@@ -1,0 +1,21 @@
+# First time meeting character
+/BLOCK=start
+	Char 2(default):Wassup
+	/GOTO=second
+/ENDBLOCK
+
+# Every other time you talk to them...
+/BLOCK=second
+	/CHOICE
+		opt1:Ayyyy
+		opt2:I literally hate you
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=opt1
+	Char 2(default):My boy, my dude
+/ENDBLOCK
+
+/BLOCK=opt2
+	Char 2(default):Whatever bro
+/ENDBLOCK

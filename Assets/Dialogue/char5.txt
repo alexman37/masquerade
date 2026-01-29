@@ -1,0 +1,21 @@
+# First time meeting character
+/BLOCK=start
+	Char 5(default):six seven
+	/GOTO=second
+/ENDBLOCK
+
+# Every other time you talk to them...
+/BLOCK=second
+	/CHOICE
+		opt1:*hand gesture*
+		opt2:Perish
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=opt1
+	Char 5(default):Comedy is dead
+/ENDBLOCK
+
+/BLOCK=opt2
+	Char 5(default):Look at you youre the murderer after all
+/ENDBLOCK

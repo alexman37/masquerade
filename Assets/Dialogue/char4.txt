@@ -1,0 +1,21 @@
+# First time meeting character
+/BLOCK=start
+	Char 4(default):Bruh
+	/GOTO=second
+/ENDBLOCK
+
+# Every other time you talk to them...
+/BLOCK=second
+	/CHOICE
+		opt1:Bruh?
+		opt2:Bruh indeed
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=opt1
+	Char 4(default):(n, colloquial) brother, bro
+/ENDBLOCK
+
+/BLOCK=opt2
+	Char 4(default):Yep
+/ENDBLOCK

@@ -1,0 +1,24 @@
+# First time meeting character
+/BLOCK=start
+	Char 3(default):Go away
+	/GOTO=second
+/ENDBLOCK
+
+# Every other time you talk to them...
+/BLOCK=second
+	Char 3(default):Cant you see im busy
+	/CHOICE
+		opt1:Yes
+		opt1:Definitely
+		opt1:Absolutely
+		opt2:No
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=opt1
+	Char 3(default):K bye
+/ENDBLOCK
+
+/BLOCK=opt2
+	Char 3(default):Oh right i am just a sphere after all
+/ENDBLOCK

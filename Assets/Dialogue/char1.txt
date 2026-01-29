@@ -1,0 +1,22 @@
+# First time meeting character
+/BLOCK=start
+	Char 1(default):Hello, how nice to meet you
+	/GOTO=second
+/ENDBLOCK
+
+# Every other time you talk to them...
+/BLOCK=second
+	Char 1(default):What can I do for you
+	/CHOICE
+		opt1:Option 1
+		opt2:Option 2
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=opt1
+	Char 1(default):Oh how interesting, option 1
+/ENDBLOCK
+
+/BLOCK=opt2
+	Char 1(default):Sweet, option 2
+/ENDBLOCK
