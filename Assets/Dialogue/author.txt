@@ -1,0 +1,153 @@
+## THE AUTHOR (Martin Hobbes)
+
+
+
+
+# First time meeting character
+/BLOCK=start
+	A():Well, well. He lives.
+	A():That was a strange incident you had.
+	A():Glad you're back, though - I was starting to get bored.
+	
+	/CHOICE
+		s_opt1:Well, here I am
+		s_opt2:What's that supposed to mean?
+	/ENDCHOICE
+/ENDBLOCK
+
+
+/BLOCK=s_opt1
+	A():Indeed. Things are getting interesting now.
+	A():What shall we discuss?
+	
+	/GOTO=main
+/ENDBLOCK
+
+/BLOCK=s_opt2
+	A():I'm sure you already knew, but most of these characters are dry as parchment paper.
+	A():But I enjoy my conversations with you.
+	A():Once in a while, you actually surprise me.
+	A():So what shall we discuss?
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+# Every time after the first
+/BLOCK=second
+	A():Hello, again.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=main
+	/CHOICE
+		opt1:What brings you to the party?
+		opt2:Have you seen anything strange?
+		opt3(authorAndDuke):You and the Duke
+		opt4(authorHatesDuke):Grievances with the Duke
+		opt5(authorSecret):Sorry about the Books
+		opt6:Goodbye
+	/ENDCHOICE
+/ENDBLOCK
+
+
+
+
+
+
+/BLOCK=opt1
+	A():Truth or Tall Tale?
+	
+	/CHOICE
+		s1_truth:Truth
+		s1_tale:Tall Tale
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=s1_truth
+	A():Well, I suppose you're the first one I'm telling this to.
+	A():It's a farewell event for me.
+	A():I'll be leaving the country soon. No idea when I'll come back.
+	A():Don't tell the Duke.
+	A():Not every relationship needs a tear-filled goodbye.
+	A():Sometimes, it's better to end these things as soon as you can.
+	
+	/FLAG authorAndDuke
+	/GOTO=main
+/ENDBLOCK
+
+/BLOCK=s2_tall
+	A():I'm joining the Duke in celebration of his newfound wealth.
+	A():...by helping him spend it on wine.
+	A():Who knows how much of this he'll even remember.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+
+
+/BLOCK=opt2
+	A():Hm. If only.
+	A():This party's been quite the bore thus far. More so, now that nearly everyone left.
+	A():I do hope something noteworthy happens soon. I despise filler.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+
+/BLOCK=opt3
+	A():Truth or Tale?
+	A():Actually, I'll just give you the truth.
+	A():No.
+
+	/FLAG authorHatesDuke
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+
+/BLOCK=opt4
+	A():*sigh*
+	A():I'm sure you've heard rumors of it all.
+	A():So allow me to clear the record.
+	A():Your father and I were best of friends for decades.
+	A():Of all things, it's money that's breaking us apart...how foolish is that?
+	A():In return for publishing my books, he takes more than his fair share of the cut.
+	A():I've informed him about it. Many times.
+	A():I'll always respect him as a friend. But as a business partner...
+	A():I'm ready to cut ties and be done with it.
+	
+	/FLAG authorSecret
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+
+/BLOCK=opt5
+	A():It's alright.
+	A():Sometimes a fresh start is the best medicine.
+	A():And besides...I'm working on a new mystery right now.
+	A():I promise, you'll be the first to know when it's finished.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+/BLOCK=opt6
+	A():Until next time.
+/ENDBLOCK

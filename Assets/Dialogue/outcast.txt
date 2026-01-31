@@ -1,0 +1,130 @@
+## THE OUTCAST  (Charles Kingston)
+
+
+
+
+# First time meeting character
+/BLOCK=start
+	O():...
+	O():What?
+	O():You gonna bother me, or take another nap?
+	
+	/CHOICE
+		s_opt1:Bother you?
+		s_opt2:Take a nap?
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=s_opt1
+	O():See, that's what I mean.
+	O():"Oh, Charles, am I *bothering you* by pretending to be your friend?"
+	O():Yes. You ARE bothering me.
+	O():Now get to the point or go away.
+	
+	/GOTO=main
+/ENDBLOCK
+
+/BLOCK=s_opt2
+	O():Don't play dumb. I know you faked it.
+	O():Dad already thinks I slipped something in your drink.
+	O():He'll let me hear about it when he sobers up next week.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+
+# Every time after the first
+/BLOCK=second
+	O():...
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=main
+	/CHOICE
+		opt1:Have you seen anything strange?
+		opt2(outcast1):Why are you here?
+		opt3(socialiteSecret):Are you hiding something?
+		opt4(outcast3):Why do you hate me?
+		opt5:Goodbye
+	/ENDCHOICE
+/ENDBLOCK
+
+
+
+/BLOCK=opt1
+	O():Yeah. Everyone pretending they want to be here.
+	O():That's weird. Don't you think?
+	
+	/FLAG outcast1
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt2
+	O():So dad doesn't throw a temper tantrum.
+	O():Why are you asking dumb questions?
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt3
+	O():What?
+	O():Don't be ridiculous.
+	/CHOICE
+		s1_lie:Don't lie to me
+		s1_gun:I know you have a gun
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=s1_lie
+	O():Why don't *you* stop accusing me of random shit?
+	O():Is that all you came here to do?
+	
+	/GOTO=main
+/ENDBLOCK
+
+/BLOCK=s1_gun
+	O():Yeah. So what?
+	O():I keep it on me for self defense.
+	O():You gonna tell on me to dad?
+	O():Whatever. Kick me out, like I care.
+	O():Least I won't have to keep talking to you.
+	
+	/FLAG outcast3
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+# Ends without returning to conversation
+/BLOCK=opt4
+	O():...
+	O():...Is that a serious question?
+	O():You're just wondering that now, after 5 years?
+	O():God...
+	O():I don't hate you. At least, I never wanted to.
+	O():But what choice do you leave me?
+	O():You betrayed me. Betrayed Dad.
+	O():And yet he STILL loves you.
+	O():Blames me for it instead, like always...
+	O():I want to love you because you're my brother.
+	O():I have to hate you because you're a backstabbing, two-faced, pathetic little weasel.
+	O():And you have the audacity to ask "why".
+	O():Get out of my face.
+/ENDBLOCK
+
+
+
+/BLOCK=opt5
+	O():Whatever.
+/ENDBLOCK

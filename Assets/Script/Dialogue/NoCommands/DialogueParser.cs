@@ -64,7 +64,7 @@ public class DialogueParser
         List<DialogueEntry> dialogueEntries = new List<DialogueEntry>();
 
         bool inChoice = false;
-        List<(string opt, string disp)> choiceOptions = new List<(string opt, string disp)>();
+        List<(string opt, string disp, string flag)> choiceOptions = new List<(string opt, string disp, string flag)>();
         DialogueChoice choice = null;
 
         for (int i = 0; i < raw.Length; i++)
@@ -107,7 +107,7 @@ public class DialogueParser
                         else if (currLine.Contains("/ENDCHOICE"))
                         {
                             inChoice = false;
-                            choice = new DialogueChoice(new List<(string opt, string disp)>(choiceOptions));
+                            choice = new DialogueChoice(new List<(string opt, string disp, string flag)>(choiceOptions));
                             dialogueEntries.Add(choice);
                             choiceOptions.Clear();
                         }
@@ -157,7 +157,17 @@ public class DialogueParser
                             string[] choiceParse = currLine.Split(':');
                             if (choiceParse.Length > 1)
                             {
-                                choiceOptions.Add((choiceParse[0], choiceParse[1]));
+                                string flag = null;
+                                string choiceHandle = choiceParse[0];
+                                if (choiceParse[0].Contains('('))
+                                {
+                                    int ix1 = choiceParse[0].IndexOf('(');
+                                    int ix2 = choiceParse[0].IndexOf(')');
+                                    flag = choiceParse[0].Substring(ix1 + 1, ix2 - ix1 - 1);
+                                    choiceHandle = choiceParse[0].Substring(0, ix1);
+                                }
+                                
+                                choiceOptions.Add((choiceHandle, choiceParse[1], flag));
                             }
                         }
                     }

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Notepad : MonoBehaviour
 {
+    public static Notepad instance;
+
+    public Sprite logicGridSpr_UNKNOWN;
+    public Sprite logicGridSpr_ELIM_MANUAL;
+    public Sprite logicGridSpr_ELIM_IMPLIED;
+    public Sprite logicGridSpr_CONFIRMED;
+
     [SerializeField] private Vector2 enabledSpot;
     [SerializeField] private Vector2 disabledSpot;
     [SerializeField] private float time;
@@ -15,6 +22,9 @@ public class Notepad : MonoBehaviour
 
     private void Start()
     {
+        if (instance == null) instance = this;
+        else Destroy(this);
+
         rt = this.GetComponent<RectTransform>();
     }
 

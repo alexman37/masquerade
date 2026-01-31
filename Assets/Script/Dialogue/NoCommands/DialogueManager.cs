@@ -197,7 +197,6 @@ public class DialogueManager : MonoBehaviour
         {
             DialogueGoTo dg = entry as DialogueGoTo;
             gotoBlock(dg.gotoThis);
-            finishedDialogueLine = true;
 
         } else if(entry is DialogueFlag)
         {
@@ -206,8 +205,7 @@ public class DialogueManager : MonoBehaviour
             if (df.on) flags.Add(df.flagVarName);
             else flags.Remove(df.flagVarName);
 
-            finishedDialogueLine = true;
-
+            advanceDialogue();
         }
         yield return null;
     }
@@ -293,24 +291,32 @@ public class DialogueManager : MonoBehaviour
         anyClick -= advanceDialogue;
 
         int numChoices = dc.blocks.Count;
-        float offset = 100;
+        float offset = 60;
 
         // First we have to put the choices onto the screen- this requires a bit of math
         float startPosY = dialogueChoice.image.rectTransform.localPosition.y;
         float adjustedStartPos = startPosY + ((offset / 2) * (numChoices - 1));
 
+        int usedIndex = 0;
         for (int i = 0; i < numChoices; i++)
         {
-            Button copy = GameObject.Instantiate(dialogueChoice, dialogueContainer.transform);
-            RectTransform copyRT = copy.image.GetComponent<RectTransform>();
-            float middleX = dialogueContainer.transform.GetComponent<RectTransform>().rect.width / 2 - copyRT.rect.width / 2;
+            if(dc.blocks[i].flag == null || flags.Contains(dc.blocks[i].flag))
+            {
+                usedIndex++;
+                Button copy = GameObject.Instantiate(dialogueChoice, dialogueContainer.transform);
+                RectTransform copyRT = copy.image.GetComponent<RectTransform>();
+                float middleX = dialogueContainer.transform.GetComponent<RectTransform>().rect.width / 2 - copyRT.rect.width / 2;
 
-            // Set the button's position and values
-            copyRT.anchoredPosition = new Vector2(middleX, adjustedStartPos - i * offset);
-            copy.GetComponent<DialogueChoiceButton>().setButton(dc.blocks[i].opt, dc.blocks[i].disp);
+                // Set the button's position and values
+                copyRT.anchoredPosition = new Vector2(middleX, adjustedStartPos - usedIndex * offset);
+                copy.GetComponent<DialogueChoiceButton>().setButton(dc.blocks[i].opt, dc.blocks[i].disp);
 
-            newChoiceButtons.Add(copy);
-            copy.gameObject.SetActive(true);
+                newChoiceButtons.Add(copy);
+                copy.gameObject.SetActive(true);
+            } else
+            {
+                Debug.Log("Failed flag check for " + dc.blocks[i].flag);
+            }
         }
     }
 

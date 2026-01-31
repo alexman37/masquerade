@@ -1,0 +1,93 @@
+## THE DUKE (Devon Kingston)
+
+
+
+
+# First time meeting character
+/BLOCK=start
+	D():There he is!
+	D():You're lookin' a lil dizzy.\nHave too much to drink?
+	D():I sure know...*hic* I have!\n\sWhew, that was close.\!
+	D():So, uh...whatcha up to, kiddo?
+
+	/GOTO=main
+/ENDBLOCK
+
+
+
+# Every time after the first
+/BLOCK=second
+	D():Hey there, kiddo!
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=main
+	/CHOICE
+		opt1:Are you...Okay?
+		opt2:Have you seen anything strange?
+		opt3(duke2):What's the party for?
+		opt4(authorSecret):You and the author?
+		opt5:Goodbye
+	/ENDCHOICE
+/ENDBLOCK
+
+
+
+/BLOCK=opt1
+	D():Okay? I feel GREAT!
+	D():Life's never been better. What's not to love?
+	D():I got a big house...a big bank account...
+	D():And a big party...all about ME!
+	D():*hic*
+	D():Ugh, alright. No more yelling.
+	D():...what were ya saying?
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt2
+	D():Strange? Whaddya mean strange?
+	D():I dunno. You're...acting *strange*.
+	D():Why don't you enjoy yourself a little more, kiddo?
+	D():If you wanna be a grump, go hang out with your brother.
+	D():No. Don't do that. No grumps allowed! It's...MY party, damnit!
+	
+	/FLAG duke2
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt3
+	D():Heh. I say why not?
+	D():If I were king...EVERY day would be a party!
+	D():Aww...if only I were king.
+	D():When you and Charles become Duke, you better have as many good ideas as me!
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt4
+	D():What? You mean Martin...?
+	D():I dunno what you're talking about.
+	D():I published his books like he wanted. And paid for all the paper.
+	D():He should be thanking me!...*hic*
+	D():Anyway.
+	D():Don't worry about all this grown-up stuff.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt5
+	D():Byeee! Smile more, kiddo!
+	D():CLYDE! More wine, now!
+/ENDBLOCK

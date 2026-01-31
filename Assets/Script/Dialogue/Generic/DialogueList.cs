@@ -84,9 +84,9 @@ public class DialogueLine : DialogueEntry
 /// </summary>
 public class DialogueChoice : DialogueEntry
 {
-    public List<(string opt, string disp)> blocks; // Names of blocks to go to, and how they appear in text.
+    public List<(string opt, string disp, string flag)> blocks; // Names of blocks to go to, and how they appear in text.
 
-    public DialogueChoice(List<(string opt, string dist)> bs)
+    public DialogueChoice(List<(string opt, string dist, string flag)> bs)
     {
         blocks = bs;
     }

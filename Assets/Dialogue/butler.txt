@@ -1,0 +1,124 @@
+## THE BUTLER (Clyde Carstairs)
+
+
+
+
+# First time meeting character
+/BLOCK=start
+	B():Ah, you're back, sir.
+	B():I trust you're feeling better now? I was quite concerned for you.
+	
+	/CHOICE
+		s_opt1:What happened to me?
+		s_opt2:I'm feeling fine
+	/ENDCHOICE
+/ENDBLOCK
+
+
+
+/BLOCK=s_opt1
+	B():I wish I knew, sir.
+	B():I'm told you started feeling lightheaded and simply collapsed.
+	B():A bad drink, perhaps. Or a chef who'll soon be unemployed?
+	B():Whatever the case, I'm grateful for your recovery.
+	N():(A bad drink? Could it be, that someone...)
+	
+	/GOTO=main
+/ENDBLOCK
+
+/BLOCK=s_opt2
+	B():Most excellent, sir.
+	B():The night is still young. May we enjoy it in peace.
+		
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+
+# Every time after the first
+/BLOCK=second
+	B():Yes, sir?
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=main
+	/CHOICE
+		opt1:Seen anything suspicious?
+		opt2(sus):What was in my drink?
+		opt3(sus):Is anyone acting strange?
+		opt4:Goodbye
+	/ENDCHOICE
+/ENDBLOCK
+
+
+
+/BLOCK=opt1
+	B():Suspicious, sir?
+	B():No, I haven't seen anything much out of the ordinary.
+	B():Well, aside from your fall, that is.
+	B():Do you...believe something strange has occurred?
+		
+	/CHOICE
+		s1_yes:Possibly
+		s1_no:No, never mind
+	/ENDCHOICE
+/ENDBLOCK
+
+
+/BLOCK=s1_yes
+	B():Oh, dear. I admit, sir, I had no idea.
+	B():I'll keep an eye out and let you know if I see anything unusual, alright?
+	B():Ah, on that note- where'd you get that notebook?
+	N():Oh. It's nothing.
+		
+	/FLAG sus
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=s1_no
+	B():Ah. Perhaps you're still a bit nauseous.
+	B():Hopefully you feel better soon.
+		
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+
+
+/BLOCK=opt2
+	B():Red wine, sir. The finest in all the land, I might add!
+	B():I could bring you some more, if you like.
+	N():No thanks. I've had enough.
+	B():As you wish, sir. A smart man always knows his limits.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+/BLOCK=opt3
+	B():Pardon me, sir, but it's rude for a butler to gossip about his benefactors.
+	B():However...since you are also my benefactor...
+	B():Miss Wells appears to be on edge about something...though I admit, I am just speculating.
+	B():And Charles is being his usual, unusual self.
+	B():That's all I can say. I pray you won't tell anyone of my rude remarks?
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+/BLOCK=opt4
+	B():I'll be here if you need me, sir.
+/ENDBLOCK

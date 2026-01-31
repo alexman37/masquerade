@@ -1,0 +1,114 @@
+## THE SOCIALITE (Heather Wells)
+
+
+
+
+# First time meeting character
+/BLOCK=start
+	S():You know, I always wanted to go to one of these silly masking parties.
+	S():The spectacle, the mystery, the romanticity of it all...I imagined it being quite fun.
+	S():Well, it was...before you scared everyone off with your little stunt.
+	S():Ah well. Good times never last long.
+	S():Where was I?
+	S():Oh. Can I help you, dear?
+
+	/GOTO=main
+/ENDBLOCK
+
+
+
+# Every time after the first
+/BLOCK=second
+	S():Hi, dear.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=main
+	/CHOICE
+		opt1:Sorry about the party
+		opt2:Have you seen anything strange?
+		opt3(socialiteSecret):What's your secret?
+		opt4:Goodbye
+	/ENDCHOICE
+/ENDBLOCK
+
+
+
+/BLOCK=opt1
+	S():Oh, dear, don't apologize for that.
+	S():It caused quite the stir, but you were just a minor symptom in the end.
+	S():I'm afraid this event was doomed from the start.
+	S():Devon acting like an oaf with only a few drinks in him...
+	S():That dreadful brown-nosing butler of his...
+	S():And Charles, who even knows why he bothers to show his face around here.
+	S():Really, it's a relief to see you.\n/sThe bar is low.../!
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt2
+	S():...
+	S():Why should I tell you?
+	/CHOICE
+		s1_bad:Something bad is in the air
+		s1_nvm:Nothing, never mind
+	/ENDCHOICE
+/ENDBLOCK
+
+/BLOCK=s1_bad
+	S():So it's not just me...
+	S():Fine. I'll tell you.
+	S():But you must keep it a secret. Understand?
+	
+	/FLAG socialiteSecret	
+	/GOTO=main
+/ENDBLOCK
+
+/BLOCK=s1_nvm
+	S():...Hmph. Well then.
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+
+/BLOCK=opt3
+	S():I may just be seeing things, but...
+	S():I think I saw a gun in your brother's pocket.
+	S():We all know that boy isn't right.
+	S():But this...
+	S():Well. I don't know what to think.
+	S():What should we do about it?
+	
+	/CHOICE
+		s2_talk:I'll talk to him
+		s2_nope:We can't assume things
+	/ENDCHOICE
+/ENDBLOCK
+
+
+/BLOCK=s2_talk
+	S():Please be careful.
+	S():You of all people know what he's capable of...
+	
+	/GOTO=main
+/ENDBLOCK
+
+/BLOCK=s2_nope
+	S():Bold for you of all people to say that.
+	S():But fine. Don't say I didn't warn you...
+	
+	/GOTO=main
+/ENDBLOCK
+
+
+
+/BLOCK=opt4
+	S():So long, dear.
+/ENDBLOCK
