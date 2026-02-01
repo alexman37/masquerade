@@ -136,7 +136,7 @@ public class Notebook : MonoBehaviour
         }
         pageHinges[currPage].transform.localRotation = endRot;
 
-        disableOldCanvases(currPage, toWhichPage);
+        disableOldCanvases(currPage, toWhichPage, positive);
 
         // move pages so that new rotations go on top of old ones
         Vector3 afterRot = pageHinges[currPage].transform.position;
@@ -151,6 +151,7 @@ public class Notebook : MonoBehaviour
 
     private void enableNewCanvases(int cPage, int toWhichPage)
     {
+        Debug.Log("Enabling " + toWhichPage);
         // swap out canvases in use
         if (toWhichPage > 0)
         {
@@ -164,30 +165,40 @@ public class Notebook : MonoBehaviour
             }
             else
             {
-                Debug.Log("currpage " + currPage + " whichPage " + toWhichPage);
-                if (toWhichPage < pageHinges.Length - 1) canvases[toWhichPage * 2 - 2].SetActive(true);
+                Debug.Log("currpage " + cPage + " whichPage " + toWhichPage);
+                if (toWhichPage < pageHinges.Length) canvases[toWhichPage * 2 - 2].SetActive(true);
                 if (toWhichPage > 1) canvases[toWhichPage * 2 - 3].SetActive(true);
             }
         }
     }
 
-    private void disableOldCanvases(int cPage, int toWhichPage)
+    private void disableOldCanvases(int cPage, int toWhichPage, bool positive)
     {
+        Debug.Log("Disabling " + cPage);
         // swap out canvases in use
         if (toWhichPage > 0)
         {
             if (toWhichPage == 1)
             {
-                canvases[currPage].SetActive(false);
+                canvases[1].SetActive(false);
+                canvases[2].SetActive(false);
             }
             else if (toWhichPage == pageHinges.Length)
             {
-                canvases[currPage].SetActive(false);
+                canvases[cPage].SetActive(false);
             }
             else
             {
-                if (currPage < pageHinges.Length - 1) canvases[currPage * 2 - 2].SetActive(false);
-                if (currPage > 1) canvases[currPage * 2 - 3].SetActive(false);
+                if(positive)
+                {
+                    if (cPage < pageHinges.Length - 1) canvases[cPage * 2 - 2].SetActive(false);
+                    if (cPage > 1) canvases[cPage * 2 - 3].SetActive(false);
+                } else
+                {
+                    if (cPage < pageHinges.Length - 1) canvases[cPage * 2].SetActive(false);
+                    if (cPage > 1) canvases[cPage * 2 - 1].SetActive(false);
+                }
+                
             }
         }
     }
