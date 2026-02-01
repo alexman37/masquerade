@@ -65,7 +65,7 @@ public class Notebook : MonoBehaviour
         if(activeCo == null)
         {
             int temp = currPage + by;
-            if(temp > 0 && temp < pageHinges.Length + 2)
+            if(temp >= 0 && temp < pageHinges.Length + 1)
             {
                 if(by > 0)
                 {

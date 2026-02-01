@@ -48,9 +48,18 @@ public class TableField : MonoBehaviour
             {
                 critLetterFound.Invoke(activeField.critIndex, newSelection[activeField.critPosition]);
             }
+
+            activeField.GetComponent<Image>().color = new Color(93f / 255f, 153f / 255f, 141f / 255f, 1);
+        } else
+        {
+            // Clear existing selection
+            string prior = activeField.textField.text;
+            activeField.textField.text = "?????";
+            TableMaster.instance.columns[activeField.columnId].mark(prior, false);
+            activeField.GetComponent<Image>().color = new Color(1,1,1,1);
         }
 
-        activeField.GetComponent<Image>().color = new Color(93f / 255f, 153f / 255f, 141f / 255f, 1);
+        
         TableMaster.instance.cleanup();
     }
 }
