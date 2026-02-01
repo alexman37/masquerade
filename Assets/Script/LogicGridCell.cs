@@ -73,16 +73,16 @@ public class LogicGridCell : MonoBehaviour
         switch (currState)
         {
             case GridCellState.Unknown:
-                img.sprite = Notepad.instance.logicGridSpr_UNKNOWN;
+                img.sprite = Notebook.instance.logicGridSpr_UNKNOWN;
                 break;
             case GridCellState.Eliminated:
-                img.sprite = Notepad.instance.logicGridSpr_ELIM_MANUAL;
+                img.sprite = Notebook.instance.logicGridSpr_ELIM_MANUAL;
                 break;
             case GridCellState.Eliminated_Implied:
-                img.sprite = Notepad.instance.logicGridSpr_ELIM_IMPLIED;
+                img.sprite = Notebook.instance.logicGridSpr_ELIM_IMPLIED;
                 break;
             case GridCellState.Confirmed:
-                img.sprite = Notepad.instance.logicGridSpr_CONFIRMED;
+                img.sprite = Notebook.instance.logicGridSpr_CONFIRMED;
                 break;
         }
     }
