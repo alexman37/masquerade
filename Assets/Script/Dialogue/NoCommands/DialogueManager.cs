@@ -27,6 +27,7 @@ public class DialogueManager : MonoBehaviour
     public Button dialogueChoice;
 
     public GameObject controlButtons;
+    public GameObject notebookButton;
     List<Button> newChoiceButtons = new List<Button>();
 
     // Flags persist across all conversations.
@@ -361,6 +362,7 @@ public class DialogueManager : MonoBehaviour
         entryInBlock = 0;
         dialogueContainer.SetActive(false);
         controlButtons.SetActive(true);
+        notebookButton.SetActive(true);
     }
 
     // Short circuit on scene transitions - just quietly dismantle the conversation

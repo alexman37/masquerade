@@ -10,6 +10,7 @@ public class TalkingManager : MonoBehaviour
     private HashSet<int> charactersIntroduced = new HashSet<int>();
 
     [SerializeField] private GameObject dialogueButtons;
+    [SerializeField] private GameObject notebookButton;
     [SerializeField] private TextMeshProUGUI tm;
 
     private void OnEnable()
@@ -18,6 +19,7 @@ public class TalkingManager : MonoBehaviour
         Notebook.notebookOpened += disableDialogueButtons;
         Notebook.notebookClosed += enableDialogueButtons;
         LockboxMaster.stoppedLockbox += enableDialogueButtons;
+        LockboxMaster.stoppedLockbox += enableNotebook;
     }
 
     private void OnDisable()
@@ -26,6 +28,7 @@ public class TalkingManager : MonoBehaviour
         Notebook.notebookOpened -= disableDialogueButtons;
         Notebook.notebookClosed -= enableDialogueButtons;
         LockboxMaster.stoppedLockbox -= enableDialogueButtons;
+        LockboxMaster.stoppedLockbox -= enableNotebook;
     }
 
     public void beginDialogueForCurrent()
@@ -36,6 +39,7 @@ public class TalkingManager : MonoBehaviour
             if (currCharacter == 5)
             {
                 disableDialogueButtons();
+                disableNotebook();
                 LockboxMaster.instance.useLockbox();
             }
             else
@@ -46,6 +50,7 @@ public class TalkingManager : MonoBehaviour
 
                 DialogueManager.instance.processConversation(characterDialogueFiles[currCharacter], entryBlock);
                 disableDialogueButtons();
+                disableNotebook();
             }
         }
     }
@@ -76,5 +81,17 @@ public class TalkingManager : MonoBehaviour
     private void disableDialogueButtons()
     {
         dialogueButtons.SetActive(false);
+    }
+
+
+    // fff
+    private void enableNotebook()
+    {
+        notebookButton.SetActive(true);
+    }
+
+    private void disableNotebook()
+    {
+        notebookButton.SetActive(false);
     }
 }
