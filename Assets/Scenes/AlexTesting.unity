@@ -6772,6 +6772,7 @@ MonoBehaviour:
   speakerText: {fileID: 1876534529}
   dialogueText: {fileID: 1814500349}
   dialogueChoice: {fileID: 524633799}
+  controlButtons: {fileID: 1341444447}
 --- !u!4 &1357474081
 Transform:
   m_ObjectHideFlags: 0
