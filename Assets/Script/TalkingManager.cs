@@ -32,6 +32,8 @@ public class TalkingManager : MonoBehaviour
         charactersIntroduced.Add(currCharacter);
 
         DialogueManager.instance.processConversation(characterDialogueFiles[currCharacter], entryBlock);
+        disableDialogueButtons();
+
     }
 
     private void startListening(bool finishedTransition, int charNum)

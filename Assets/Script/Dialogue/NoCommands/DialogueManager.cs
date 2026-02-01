@@ -25,6 +25,8 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI speakerText;
     public TextMeshProUGUI dialogueText;
     public Button dialogueChoice;
+
+    public GameObject controlButtons;
     List<Button> newChoiceButtons = new List<Button>();
 
     // Flags persist across all conversations.
@@ -47,7 +49,8 @@ public class DialogueManager : MonoBehaviour
     private void Start()
     {
         if (instance == null) instance = this;
-        else Destroy(this);
+        else
+         {  Destroy(this);}
 
         // Get actions started
         anyClick += () => { };
@@ -355,6 +358,7 @@ public class DialogueManager : MonoBehaviour
         nextBlock = null;
         entryInBlock = 0;
         dialogueContainer.SetActive(false);
+        controlButtons.SetActive(true);
     }
 
     // Short circuit on scene transitions - just quietly dismantle the conversation
