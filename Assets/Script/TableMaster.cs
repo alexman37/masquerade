@@ -29,6 +29,16 @@ public class TableMaster : MonoBehaviour
         };
     }
 
+    private void OnEnable()
+    {
+        TableFieldButton.fieldSelected += updateSelectedField;
+    }
+
+    private void OnDisable()
+    {
+        TableFieldButton.fieldSelected -= updateSelectedField;
+    }
+
 
 
     public void displaySelection(int columnId)
@@ -52,7 +62,7 @@ public class TableMaster : MonoBehaviour
         }
 
         GameObject newGuyC = GameObject.Instantiate(cancelButton, selectionScreen.transform);
-        newGuyC.transform.localPosition = new Vector3(0, -160 - (tempValuesShown.Count * 90), 0);
+        newGuyC.transform.localPosition = new Vector3(0, -160 + 400 - (tempValuesShown.Count * 90), 0);
         buttons.Add(newGuyC);
     }
 
@@ -68,6 +78,11 @@ public class TableMaster : MonoBehaviour
     public string getAt(int code)
     {
         return tempValuesShown[code];
+    }
+
+    private void updateSelectedField(int code)
+    {
+        TableField.finalizeSelection(code);
     }
 }
 

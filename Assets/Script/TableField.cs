@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.UI;
+using System;
 
 public class TableField : MonoBehaviour
 {
@@ -8,43 +10,47 @@ public class TableField : MonoBehaviour
 
     public string currGivenField = null;
 
+    private static TableField activeField;
+
+    public int critPosition = -1;
+    public int critIndex = -1;
+
     [SerializeField] private TextMeshProUGUI textField;
 
-
-    private void OnEnable()
-    {
-        TableFieldButton.fieldSelected += finalizeSelection;
-    }
-
-    private void OnDisable()
-    {
-        TableFieldButton.fieldSelected -= finalizeSelection;
-    }
+    public static event Action<int, char> critLetterFound = (_, _) => { };
 
 
     public void clickToSelect()
     {
         TableMaster.instance.displaySelection(columnId);
+        activeField = this;
     }
 
-    public void finalizeSelection(int code)
+    // Finalize only for the active field
+    public static void finalizeSelection(int code)
     {
         if(code != -1)
         {
             string newSelection = TableMaster.instance.getAt(code);
-            string prior = textField.text;
-            textField.text = newSelection;
-            if (currGivenField == null)
+            string prior = activeField.textField.text;
+            activeField.textField.text = newSelection;
+            if (activeField.currGivenField == null)
             {
-                TableMaster.instance.columns[columnId].mark(newSelection, true);
+                TableMaster.instance.columns[activeField.columnId].mark(newSelection, true);
             }
             else
             {
-                TableMaster.instance.columns[columnId].mark(prior, false);
-                TableMaster.instance.columns[columnId].mark(newSelection, true);
+                TableMaster.instance.columns[activeField.columnId].mark(prior, false);
+                TableMaster.instance.columns[activeField.columnId].mark(newSelection, true);
+            }
+
+            if (activeField.critPosition != -1)
+            {
+                critLetterFound.Invoke(activeField.critIndex, newSelection[activeField.critPosition]);
             }
         }
 
+        activeField.GetComponent<Image>().color = new Color(93f / 255f, 153f / 255f, 141f / 255f, 1);
         TableMaster.instance.cleanup();
     }
 }
