@@ -48,7 +48,13 @@ public class TableField : MonoBehaviour
 
             if (activeField.critPosition != -1)
             {
-                critLetterFound.Invoke(activeField.critIndex, newSelection[activeField.critPosition]);
+                if(activeField.critPosition < newSelection.Length)
+                {
+                    critLetterFound.Invoke(activeField.critIndex, newSelection[activeField.critPosition]);
+                } else
+                {
+                    Debug.LogWarning("Couldnt set the field because the word is too small (this is normal).");
+                }
             }
 
             activeField.GetComponent<Image>().color = new Color(93f / 255f, 153f / 255f, 141f / 255f, 1);
