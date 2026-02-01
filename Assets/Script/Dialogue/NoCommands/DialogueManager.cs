@@ -180,7 +180,7 @@ public class DialogueManager : MonoBehaviour
                 dialogueContainer.SetActive(true);
             }
 
-            speakerText.text = dl.character;
+            //speakerText.text = dl.character;
 
             // Set sprite, and text
             // TODO: Play talking animations here
@@ -294,25 +294,27 @@ public class DialogueManager : MonoBehaviour
         anyClick -= advanceDialogue;
 
         int numChoices = dc.blocks.Count;
-        float offset = 60;
+        float additionalOffset = 10f;
+        float offset = dialogueChoice.image.rectTransform.rect.height + additionalOffset;
+        float xPos = dialogueChoice.image.rectTransform.anchoredPosition.x;
 
         // First we have to put the choices onto the screen- this requires a bit of math
-        float startPosY = dialogueChoice.image.rectTransform.localPosition.y;
-        float adjustedStartPos = startPosY + ((offset / 2) * (numChoices - 1));
+        float startPosY = dialogueChoice.image.rectTransform.anchoredPosition.y;
+        float adjustedStartPos = startPosY/* + ((offset / 2) * (numChoices - 1))*/;
 
         int usedIndex = 0;
         for (int i = 0; i < numChoices; i++)
         {
             if(dc.blocks[i].flag == null || flags.Contains(dc.blocks[i].flag))
             {
-                usedIndex++;
                 Button copy = GameObject.Instantiate(dialogueChoice, dialogueContainer.transform);
                 RectTransform copyRT = copy.image.GetComponent<RectTransform>();
-                float middleX = dialogueContainer.transform.GetComponent<RectTransform>().rect.width / 2 - copyRT.rect.width / 2;
 
                 // Set the button's position and values
-                copyRT.anchoredPosition = new Vector2(middleX, adjustedStartPos - usedIndex * offset);
+                copyRT.anchoredPosition = new Vector2(xPos, adjustedStartPos - usedIndex * offset);
                 copy.GetComponent<DialogueChoiceButton>().setButton(dc.blocks[i].opt, dc.blocks[i].disp);
+
+                usedIndex++;
 
                 newChoiceButtons.Add(copy);
                 copy.gameObject.SetActive(true);
