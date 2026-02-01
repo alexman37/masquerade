@@ -8,14 +8,20 @@ public class TalkingManager : MonoBehaviour
     private int currCharacter;
     private HashSet<int> charactersIntroduced = new HashSet<int>();
 
+    [SerializeField] private GameObject dialogueButtons;
+
     private void OnEnable()
     {
         CameraManager.cameraTransition += startListening;
+        Notebook.notebookOpened += disableDialogueButtons;
+        Notebook.notebookClosed += enableDialogueButtons;
     }
 
     private void OnDisable()
     {
         CameraManager.cameraTransition -= startListening;
+        Notebook.notebookOpened -= disableDialogueButtons;
+        Notebook.notebookClosed -= enableDialogueButtons;
     }
 
     public void beginDialogueForCurrent()
@@ -34,5 +40,18 @@ public class TalkingManager : MonoBehaviour
         {
             currCharacter = charNum;
         }
+    }
+
+
+
+
+    private void enableDialogueButtons()
+    {
+        dialogueButtons.SetActive(true);
+    }
+
+    private void disableDialogueButtons()
+    {
+        dialogueButtons.SetActive(false);
     }
 }
