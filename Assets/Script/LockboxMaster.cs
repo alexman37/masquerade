@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class LockboxMaster : MonoBehaviour
 {
@@ -18,13 +19,32 @@ public class LockboxMaster : MonoBehaviour
     private Coroutine activeCo;
 
     [SerializeField] private Camera mainCam;
+    [SerializeField] private Transform outsideBoxView;
+    [SerializeField] private Transform usingBoxView;
     [SerializeField] private Transform openBoxView;
+
+    public static event Action stoppedLockbox = () => { };
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (instance == null) instance = this;
         else Destroy(this);
+
+        canvas.SetActive(false);
+    }
+
+    public void useLockbox()
+    {
+        canvas.SetActive(true);
+        StartCoroutine(usingMovement(usingBoxView, 2f));
+    }
+
+    public void stopUsingLockbox()
+    {
+        canvas.SetActive(false);
+        StartCoroutine(usingMovement(outsideBoxView, 2f));
+        stoppedLockbox.Invoke();
     }
 
     public bool checkCorrect()
@@ -51,7 +71,7 @@ public class LockboxMaster : MonoBehaviour
             currPositions[index] = (currValue + by) % currPositions.Length;
         }
 
-        rotateModel(index, currPositions[index] * -60f);
+        rotateModel(index, (currPositions[index] * -60f) % 360f);
     }
 
     private void rotateModel(int index, float newDeg)
@@ -111,8 +131,34 @@ public class LockboxMaster : MonoBehaviour
         }
     }
 
+    private IEnumerator usingMovement(Transform t, float time)
+    {
+        CameraManager.inTransition = true;
+        Vector3 startPos = mainCam.transform.position;
+        Vector3 endPos = t.position;
+        Quaternion startRot = mainCam.transform.rotation;
+        Quaternion endRot = t.rotation;
+
+        float tick = 0;
+        while (tick < time)
+        {
+            tick += Time.deltaTime;
+
+            float factor = Mathf.Pow(tick / time, 2);
+
+            mainCam.transform.localPosition = Vector3.Lerp(startPos, endPos, factor);
+            mainCam.transform.localRotation = Quaternion.Lerp(startRot, endRot, factor);
+
+            yield return null;
+        }
+
+        CameraManager.inTransition = false;
+        yield return null;
+    }
+
     private IEnumerator finalMovement(Transform t, float time)
     {
+        CameraManager.inTransition = true;
         yield return new WaitForSeconds(3f);
 
         Vector3 startPos = mainCam.transform.position;
@@ -127,13 +173,14 @@ public class LockboxMaster : MonoBehaviour
 
             float factor = Mathf.Pow(tick / time, 2);
 
-            mainCam.transform.position = Vector3.Lerp(startPos, endPos, factor);
-            mainCam.transform.rotation = Quaternion.Lerp(startRot, endRot, factor);
+            mainCam.transform.localPosition = Vector3.Lerp(startPos, endPos, factor);
+            mainCam.transform.localRotation = Quaternion.Lerp(startRot, endRot, factor);
 
             yield return null;
         }
 
         // End the game (to be continued?)
+        CameraManager.inTransition = false;
         yield return null;
     }
 

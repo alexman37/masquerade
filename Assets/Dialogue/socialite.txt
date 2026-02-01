@@ -44,7 +44,7 @@
 	S():Devon acting like an oaf with only a few drinks in him...
 	S():That dreadful brown-nosing butler of his...
 	S():And Charles, who even knows why he bothers to show his face around here.
-	S():Really, it's a relief to see you.\n/sThe bar is low.../!
+	S():Really, it's a relief to see you.\n\sThe bar is low...\!
 	
 	/GOTO=main
 /ENDBLOCK

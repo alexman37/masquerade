@@ -79,7 +79,7 @@
 	/GOTO=main
 /ENDBLOCK
 
-/BLOCK=s2_tall
+/BLOCK=s2_tale
 	A():I'm joining the Duke in celebration of his newfound wealth.
 	A():...by helping him spend it on wine.
 	A():Who knows how much of this he'll even remember.

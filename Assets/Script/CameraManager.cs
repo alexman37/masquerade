@@ -16,6 +16,8 @@ public class CameraManager : MonoBehaviour
 
     public static event Action<bool, int> cameraTransition = (_,__) => { };
 
+    public static bool inTransition = false;
+
     private void Start()
     {
         Transform initial = cycledPositions[0].transform;
@@ -35,13 +37,16 @@ public class CameraManager : MonoBehaviour
 
     public void cycleThroughCameras(int by)
     {
-        int intermediate = (currCameraInCycle + by);
-        if (intermediate >= 0) currCameraInCycle = intermediate % cycledPositions.Length;
-        else currCameraInCycle = cycledPositions.Length - 1;
+        if(activeCameraMovement == null)
+        {
+            int intermediate = (currCameraInCycle + by);
+            if (intermediate >= 0) currCameraInCycle = intermediate % cycledPositions.Length;
+            else currCameraInCycle = cycledPositions.Length - 1;
 
-        cameraTransition.Invoke(false, currCameraInCycle);
+            cameraTransition.Invoke(false, currCameraInCycle);
 
-        xerpMoveToPosition(cycledPositions[currCameraInCycle]);
+            xerpMoveToPosition(cycledPositions[currCameraInCycle]);
+        }
     }
 
 
@@ -70,6 +75,7 @@ public class CameraManager : MonoBehaviour
 
     private IEnumerator lerpMovement(Transform t, float time)
     {
+        inTransition = true;
         Vector3 startPos = mainCam.transform.position;
         Vector3 endPos = t.position;
         Quaternion startRot = mainCam.transform.rotation;
@@ -89,10 +95,12 @@ public class CameraManager : MonoBehaviour
         cameraTransition.Invoke(true, currCameraInCycle);
         yield return null;
         activeCameraMovement = null;
+        inTransition = false;
     }
 
     private IEnumerator xerpMovement(Transform t, float time)
     {
+        inTransition = true;
         Vector3 startPos = mainCam.transform.position;
         Vector3 endPos = t.position;
         Quaternion startRot = mainCam.transform.rotation;
@@ -116,5 +124,6 @@ public class CameraManager : MonoBehaviour
         cameraTransition.Invoke(true, currCameraInCycle);
         yield return null;
         activeCameraMovement = null;
+        inTransition = false;
     }
 }
