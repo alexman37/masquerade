@@ -20,7 +20,7 @@ public class TableCritLetter : MonoBehaviour
     {
         if(position == pos)
         {
-            textMesh.text = ch.ToString();
+            textMesh.text = ch.ToString().ToUpper();
         }
     }
 }

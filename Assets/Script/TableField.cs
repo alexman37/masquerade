@@ -48,9 +48,10 @@ public class TableField : MonoBehaviour
 
             if (activeField.critPosition != -1)
             {
-                if(activeField.critPosition < newSelection.Length)
+                if(activeField.critIndex < newSelection.Length)
                 {
-                    critLetterFound.Invoke(activeField.critIndex, newSelection[activeField.critPosition]);
+                    critLetterFound.Invoke(activeField.critPosition, newSelection[activeField.critIndex]);
+                    
                 } else
                 {
                     Debug.LogWarning("Couldnt set the field because the word is too small (this is normal).");
