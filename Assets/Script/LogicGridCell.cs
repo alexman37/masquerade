@@ -23,6 +23,8 @@ public class LogicGridCell : MonoBehaviour
     {
         if(!locked)
         {
+            SfxManager.instance.playSFXbyName("marker", null, 1);
+
             switch (currState)
             {
                 case GridCellState.Unknown:
@@ -50,7 +52,6 @@ public class LogicGridCell : MonoBehaviour
     public void imply(bool locking)
     {
         locked = locking;
-        Debug.Log("imply: set locked to " + locked);
         if(currState == GridCellState.Unknown)
         {
             currState = GridCellState.Eliminated_Implied;

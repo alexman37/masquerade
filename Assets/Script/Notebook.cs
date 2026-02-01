@@ -22,6 +22,7 @@ public class Notebook : MonoBehaviour
     [SerializeField] private GameObject[] pageHinges;
     [SerializeField] private GameObject binding;
     [SerializeField] private GameObject[] canvases;
+    [SerializeField] private GameObject pageTurners;
     private float[] defaultPagePositions;
 
     public static event Action notebookOpened = () => { };
@@ -50,11 +51,13 @@ public class Notebook : MonoBehaviour
         if (into)
         {
             notebookOpened.Invoke();
+            enablePageTurners();
             activeCo = StartCoroutine(slidingTransition(enabledSpot, time));
         }
         else
         {
             notebookClosed.Invoke();
+            disablePageTurners();
             activeCo = StartCoroutine(slidingTransition(disabledSpot, time));
         }
     }
@@ -89,6 +92,8 @@ public class Notebook : MonoBehaviour
     // sliding transition
     private IEnumerator slidingTransition(Vector3 moveTo, float time)
     {
+        SfxManager.instance.playSFXbyName("slide-away", null, 1);
+
         Vector3 startPos = transform.localPosition;
         Vector3 endPos = moveTo;
 
@@ -112,6 +117,8 @@ public class Notebook : MonoBehaviour
     // sliding transition
     private IEnumerator pageTurnAnimation(int toWhichPage, Quaternion rotateTo, float time, bool withBinding, bool positive)
     {
+        SfxManager.instance.playSFXbyName("page-turn", null, 1);
+
         if (!positive) currPage -= 1;
 
         Quaternion startRot = pageHinges[currPage].transform.localRotation;
@@ -207,5 +214,15 @@ public class Notebook : MonoBehaviour
     {
         if (!turnedOver) return defaultPagePositions[pageNum];
         else return defaultPagePositions[defaultPagePositions.Length - 1 - pageNum];
+    }
+
+    private void enablePageTurners()
+    {
+        pageTurners.SetActive(true);
+    }
+
+    private void disablePageTurners()
+    {
+        pageTurners.SetActive(false);
     }
 }

@@ -98,6 +98,8 @@ public class CameraManager : MonoBehaviour
         Quaternion startRot = mainCam.transform.rotation;
         Quaternion endRot = t.rotation;
 
+        SfxManager.instance.playSFXbyNameWithCutoff("footsteps", t, 0.5f, time);
+
         float tick = 0;
         while (tick < time)
         {

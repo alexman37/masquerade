@@ -29,7 +29,9 @@ public class TableField : MonoBehaviour
     // Finalize only for the active field
     public static void finalizeSelection(int code)
     {
-        if(code != -1)
+        SfxManager.instance.playSFXbyName("marker", null, 1);
+
+        if (code != -1)
         {
             string newSelection = TableMaster.instance.getAt(code);
             string prior = activeField.textField.text;
