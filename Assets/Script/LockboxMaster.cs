@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class LockboxMaster : MonoBehaviour
 {
@@ -24,6 +26,9 @@ public class LockboxMaster : MonoBehaviour
     [SerializeField] private Transform openBoxView;
 
     public static event Action stoppedLockbox = () => { };
+
+    public Image finalFade;
+    public TextMeshProUGUI text;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -181,6 +186,23 @@ public class LockboxMaster : MonoBehaviour
 
         // End the game (to be continued?)
         CameraManager.inTransition = false;
+
+
+        GameManagerSc.instance.end();
+        yield return new WaitForSeconds(2);
+        tick = 0;
+        while (tick < 3)
+        {
+            tick += Time.deltaTime;
+
+            float factor = tick / 3;
+
+            finalFade.color = new Color(0, 0, 0, factor);
+            text.color = new Color(1, 1, 1, factor);
+
+            yield return null;
+        }
+
         yield return null;
     }
 
